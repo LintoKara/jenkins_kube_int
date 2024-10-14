@@ -4,10 +4,10 @@ pipeline {
         stage('stage 1') {
             steps {
                 script {
-                    withKubeConfig([credentials: 'kubeconfig']) {          
-                    bat "kubectl get pods"
-                    bat "kubectl apply -f deployment.yaml"
-                    bat "kubectl get pods"
+                    withKubeConfig([credentialsId: 'kubeconfig']) {          
+                    bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
+                    bat "kubectl --kubeconfig $MY_KUBECONFIG apply -f deployment.yaml"
+                    bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
                     }
                 }
             }
