@@ -1,14 +1,14 @@
 pipeline {
     agent any
-    environment {
-        MY_KUBECONFIG = credentials('kubeconfig')
-    }
     stages {
         stage('stage 1') {
             steps {
-                bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
-                bat "kubectl --kubeconfig $MY_KUBECONFIG apply -f deployment.yaml"
-                bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
+                script {
+                    withKubeConfig([credentials: 'kubeconfig'])           
+                    bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
+                    bat "kubectl --kubeconfig $MY_KUBECONFIG apply -f deployment.yaml"
+                    bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
+                }
             }
         }
     }
