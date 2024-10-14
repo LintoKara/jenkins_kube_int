@@ -8,7 +8,7 @@ pipeline {
             steps {
                 bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
                 bat "kubectl --kubeconfig $MY_KUBECONFIG apply -f deployment.yaml"
-                bat timeout /t 20 /nobreak
+                bat 'timeout /t 20 /nobreak'
                 bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
             }
         }
