@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    environment {
+        MY_KUBECONFIG = credentials('kubeconfig')
+    }
+    stages {
+        stage('stage 1') {
+            steps {
+                bat "kubectl --kubeconfig $MY_KUBECONFIG get pods"
+            }
+        }
+    }
+}
